@@ -1,3 +1,16 @@
+function generatePassword() {
+    const passwordLength = document.getElementById('passwordLength').value;
+    const includeUppercase = document.getElementById('includeUppercase').checked;
+    const includeLowercase = document.getElementById('includeLowercase').checked;
+    const includeNumbers = document.getElementById('includeNumbers').checked;
+    const includeSpecialChars = document.getElementById('includeSpecialChars').checked;
+
+    const generatedPassword = generateRandomPassword(passwordLength, includeUppercase, includeLowercase, includeNumbers, includeSpecialChars);
+
+    document.getElementById('generatedPassword').value = generatedPassword;
+}
+
+
 function exportPasswords() {
     const passwordsExport = [];
     
