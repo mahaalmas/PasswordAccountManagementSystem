@@ -1,3 +1,31 @@
+function importPasswords() {
+    const fileInput = document.getElementById('importFile');
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            try {
+                const importedData = JSON.parse(e.target.result);
+
+                // Iterate through imported data and store in local storage
+                importedData.forEach(item => {
+                    localStorage.setItem(item.username, JSON.stringify({ username: item.username, password: item.password }));
+                });
+
+                // Update the password list
+                updatePasswordList();
+                alert('Passwords successfully imported!');
+            } catch (error) {
+                alert('Error parsing imported file. Please make sure it is a valid JSON file.');
+            }
+        };
+
+        reader.readAsText(file);
+    }
+}
+
 function generateRandomPassword(length, uppercase, lowercase, numbers, specialCharsEnabled) {
     const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
