@@ -1,3 +1,23 @@
+function exportPasswords() {
+    const passwordsExport = [];
+    
+    // Iterate through local storage and gather password data
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const accountData = JSON.parse(localStorage.getItem(key));
+        passwordsExport.push({ username: key, password: accountData.password });
+    }
+
+    // Convert the array to JSON
+    const jsonExport = JSON.stringify(passwordsExport, null, 2);
+
+    // Create a Blob and initiate download
+    const blob = new Blob([jsonExport], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'passwords_export.json';
+    a.click();
+}
 function importPasswords() {
     const fileInput = document.getElementById('importFile');
     const file = fileInput.files[0];
